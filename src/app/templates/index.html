@@ -1,0 +1,34 @@
+<html>
+
+<head>
+    <title>Balance Check</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <ul class="navbar">
+        <li><a>Balance Checks</a></li>
+    </ul>
+
+    <!-- Upload Files Form -->
+    <div class="formContainer">
+        <h3>Upload the Excel/CSV files</h3>
+        <form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+
+            <div class="col-25">
+                <label for="bank_file">Estratto Conto Banca</label>
+            </div>
+            <input name="bank_file" type="file" id="bank_file"><br><br>
+            
+            <div class="col-25">
+                <label for="registered_file">Estratto Conto Registrato</label>
+            </div>
+            
+            <input name="registered_file" type="file" id="registered_file"><br>
+
+            <input type="submit">
+        </form>
+    </div>
+</body>
+
+</html>

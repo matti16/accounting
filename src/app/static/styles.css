@@ -1,0 +1,58 @@
+body {
+    margin: 0;
+}
+
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+  
+ul.navbar li {
+    float: left;
+}
+  
+ul.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.formContainer {
+    margin-top: 25px;
+    margin-left: 10%;
+}
+
+input[type=file]{
+    width: 400px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 15px;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.col-25 {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    margin: 25px 0px;
+    cursor: pointer;
+}
