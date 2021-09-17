@@ -23,7 +23,7 @@ class BalanceData:
         if file_format == "csv":
             df = pd.read_csv(file_io, skiprows=skiprows, delimiter=";", encoding='latin1')
         else:
-            df = pd.read_excel(file_io, skiprows=skiprows)
+            df = pd.read_excel(file_io, skiprows=skiprows, engine='openpyxl')
 
         self.col_plus = df.columns[col_plus]
         self.col_minus = df.columns[col_minus]
