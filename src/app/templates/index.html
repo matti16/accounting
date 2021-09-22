@@ -13,7 +13,7 @@
     <!-- Upload Files Form -->
     <div class="formContainer">
         <h3>Carica i file Excel/CSV</h3>
-        <form action="/uploadfiles/" enctype="multipart/form-data" method="post">
+        <form action="/uploadfiles/accounts" enctype="multipart/form-data" method="post">
 
             <div class="col-25">
                 <label for="bank_file">Estratto Conto Banca</label>
@@ -26,6 +26,25 @@
             
             <input name="registered_file" type="file" id="registered_file"><br>
 
+            <input type="submit">
+        </form>
+    </div>
+
+    <br><br>
+    <ul class="navbar">
+        <li><a>VAT Checks</a></li>
+    </ul>
+
+    <!-- Upload Files Form -->
+    <div class="formContainer">
+        <h3>Carica il file Excel/CSV</h3>
+        <form action="/uploadfiles/vat" enctype="multipart/form-data" method="post">
+
+            <div class="col-25">
+                <label for="bank_file">Scheda IVA</label>
+            </div>
+            <input name="vat_file" type="file" id="vat_file"><br><br>
+            
             <input type="submit">
         </form>
     </div>

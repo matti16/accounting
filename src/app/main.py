@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from accounting.checks import AccountChecks
+from accounting.checks import AccountChecks, VatChecks
 from patch_file import PatchedSpooledTempfile
 
 app = FastAPI()
@@ -29,11 +29,11 @@ def delete_tmp_file(filepath: str):
     os.remove(filepath)
 
 
-@app.post("/uploadfiles/")
+
+@app.post("/uploadfiles/accounts")
 async def upload_files(background_tasks: BackgroundTasks, bank_file: UploadFile = File(...), registered_file: UploadFile = File(...)):
     bank_fmt = bank_file.filename.split(".")[-1]
     registered_fmt = registered_file.filename.split(".")[-1]
-    
     checker = AccountChecks(
         PatchedSpooledTempfile(bank_file.file), 
         PatchedSpooledTempfile(registered_file.file), 
@@ -41,10 +41,23 @@ async def upload_files(background_tasks: BackgroundTasks, bank_file: UploadFile 
         income_fmt=registered_fmt
     )
     diff = checker.get_differences()
-
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     result_file = os.path.join("tmp", f"differenze_{timestamp}.xlsx")
     diff.to_excel(result_file, index=False)
-    
     background_tasks.add_task(delete_tmp_file, result_file)
     return FileResponse(path=result_file, filename="differenze.xlsx")
+
+@app.post("/uploadfiles/vat")
+async def upload_files(background_tasks: BackgroundTasks, vat_file: UploadFile = File(...)):
+    vat_fmt = vat_file.filename.split(".")[-1]
+    checker = VatChecks(
+        PatchedSpooledTempfile(vat_file.file), 
+        vat_fmt
+    )
+    diff = checker.get_differences()
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    result_file = os.path.join("tmp", f"differenze_{timestamp}.xlsx")
+    diff.to_excel(result_file, index=False)
+    background_tasks.add_task(delete_tmp_file, result_file)
+    return FileResponse(path=result_file, filename="differenze.xlsx")
+    

@@ -19,6 +19,7 @@ class BalanceData:
         col_date, 
         col_description,
         skiprows,
+        ignore_neg=False
     ) -> None:
         if file_format == "csv":
             df = pd.read_csv(file_io, skiprows=skiprows, delimiter=";", encoding='latin1')
@@ -32,7 +33,7 @@ class BalanceData:
 
         self.col_amount = col_amount
 
-        if col_minus != col_plus:
+        if col_minus != col_plus and not ignore_neg:
             df[self.col_minus] = df[self.col_minus] * -1
 
         df[self.col_amount] = df[self.col_plus].combine_first(df[self.col_minus])\
